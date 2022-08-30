@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     net: host
     environment:
-      UPTIMEROBOT_API_KEY: ur1642717-bd88b7720c797d0555232776
+      UPTIMEROBOT_API_KEY: yourkeyhere
     ports:
       - 9705:9705
     read_only: true
