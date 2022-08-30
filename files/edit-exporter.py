@@ -4,11 +4,8 @@
 import argparse
 import http.server
 import os
+
 import requests
-
-
-
-
 
 ## Monitors
 def _fetch_paginated(offset, api_key):
@@ -17,6 +14,8 @@ def _fetch_paginated(offset, api_key):
         'format': 'json',
         'response_times': 1,
         'response_times_limit': 1,
+        'custom_uptime_ratios': 30,
+        'custom_down_durations': 1,
         'offset': offset,
     }
     return requests.post(
@@ -125,7 +124,7 @@ class ReqHandler(http.server.BaseHTTPRequestHandler):
         accountdetails = fetch_accountdetails(api_key)
         psp = fetch_psp(api_key)
         self.send_response(200)
-        self.send_header("Content-type", "application/JSON")
+        self.send_header("Content-type", "text/plain")
         self.end_headers()
         self.wfile.write(
             format_prometheus(answer.get('monitors')).encode('utf-8')
